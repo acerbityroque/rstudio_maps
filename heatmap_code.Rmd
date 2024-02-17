@@ -93,14 +93,14 @@ Um objeto `sf` contém uma coleção de recursos incluindo atributos e geometria
 
 ```{r echo = T, results = 'hide', warnings=FALSE}
 
-class(all_mun_ms)
+class(all_mun_ce)
 [1] "sf"         "data.frame"
   
 ```
 
 O dataset pode então ser observado. O dataset contém o código do município, o nome do município, o código do estado, a sigla do estado e aspectos geográficos como latitude, longitude dos vários segmentos que permitirão construir o mapa.
 
-![*Imagem do objeto `all_mun_ms`.*](saida_all_mun_ms.PNG)
+![*Imagem do objeto `all_mun_ce`.*](saida_all_mun_ce.PNG)
 
 Agora vou construir uma variável para ser plotada no mapa. Preciso ter os meus dados em uma planilha em que uma das colunas será o código do município da mesma forma que consta em `code_muni` no objeto `all_mun_ce`. 
 Recomendo fazer a associação entre os dados por meio do código, menos sujeito a erros de digitação que para os nomes dos municípios. Para este exemplo, baixei os dados de <http://atlasbrasil.org.br/2013/pt/download/>, ou mais precisamente em <http://atlasbrasil.org.br/2013/data/rawData/atlas2013_dadosbrutos_pt.xlsx>, o site oficial do PNUD para o Índice de Desenvolvimento Humano Municipal do Brasil, para 2013, que nesse caso se refere aos dados do censo demográfico 2010. 
@@ -177,7 +177,7 @@ library(readxl)
 atlas2013_dadosbrutos_pt <- read_excel("atlas2013_dadosbrutos_pt.xlsx", 
     sheet = "MUN 91-00-10") # O comando "sheet" serve para selecionar, dentro do arquivo em Excel, qual das "pastas" ou "planilhas" eu vou utilizar. Nesse caso, iremos usar a planilha chamada de "MUN 91-00-10"
 
-# Reduzir linhas para 2010 e MS
+# Reduzir linhas para 2010 e CE
 # Usando a funcao subset para pegar as colunas de IDH até a última ()
 
 
@@ -191,7 +191,7 @@ all_mun_ce <- read_municipality(code_muni=23, year=2010)
 
 ```       
 
-Juntarei os datasets pela condição de que o `code_muni` do objeto `all_mun_ms` é igual ao `Codmun7` do objeto `dados_ce`.    
+Juntarei os datasets pela condição de que o `code_muni` do objeto `all_mun_ce` é igual ao `Codmun7` do objeto `dados_ce`.    
 
 ```{r}
 dataset_final = left_join(all_mun_ce, dados_ce, by=c("code_muni"="Codmun7"))
@@ -199,7 +199,7 @@ max(dataset_final$IDHM) # 0.784
 min(dataset_final$IDHM) # 0.526
 ggplot() +
   geom_sf(data=dataset_final, aes(fill=IDHM), color= NA, size=.15)+
-  labs(title="IDHM 2013 (ano base 2010) dos Municipíos de MS",
+  labs(title="IDHM 2013 (ano base 2010) dos Municipíos do Ceará",
        caption='Fonte: Elaboração própria', size=8)+
   scale_fill_distiller(palette = "Greens", limits=c(0.5, 0.8),
                        name="Code_muni")+
@@ -212,7 +212,7 @@ Sendo um mapa feito em `ggplot2` pelos comandos `ggplot() +
   
 ```{r}
 
-#dataset_final = left_join(all_mun_ms, dados_ce, by=c("code_muni"="Codmun7"))
+#dataset_final = left_join(all_mun_ce, dados_ce, by=c("code_muni"="Codmun7"))
 max(dataset_final$IDHM_E) # 0.724
 min(dataset_final$IDHM_E) # 0.337
 ```

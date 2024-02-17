@@ -42,13 +42,13 @@ install.packages("ggplot2")
 install.packages("rnaturalearth")
 install.packages("rnaturalearthhires")
 install.packages("sf")
-install.packages("rio"")
+install.packages("rio")
 install.packages("readr")
 install.packages("tidyverse")
-install.packages("ggspatial"")
-install.packages("readxl"")
-install.packages("httr"")
-install.packages("xlsx"")
+install.packages("ggspatial")
+install.packages("readxl")
+install.packages("httr")
+install.packages("xlsx")
 ```
 
 ```{r echo = T, results = 'hide', warnings=FALSE}
